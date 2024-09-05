@@ -17,7 +17,7 @@ export class BreedsService {
   }
 
   async findAll() {
-    return `This action returns all breeds`;
+    return await this.breedRepository.find();//para que me traiga todas las razas
   }
 
   async findOne(id: number) {
