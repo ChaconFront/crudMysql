@@ -6,3 +6,4 @@ mysql
 
 #logs
 .log
+.env
