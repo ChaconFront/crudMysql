@@ -6,8 +6,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/common/enums/rol.enum';
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user-Active-interface';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Cats')//para separar el espacio en la documentacion de la api.
 @Auth(ROLES.USER)
+@ApiBearerAuth()//esto es para la autorizacion de los endpoints.
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}

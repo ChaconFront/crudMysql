@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,20 @@ async function bootstrap() {
       transform: true,// te permite hacer el parceo de los datos que recibe el controlador
     })
   )
+
+  //Documentar tu api
+  const config = new DocumentBuilder()
+  .setTitle("Cats example")//titulo de la documentacion
+  .setDescription("The cats API description")//descripcion
+  .setVersion("1.0")//version correspondiente
+  .addBearerAuth()
+  .build();
+const document = SwaggerModule.createDocument(app, config);
+SwaggerModule.setup("docs", app, document);
+
+
+
+
 
 
   await app.listen(3000);
