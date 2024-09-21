@@ -1,5 +1,5 @@
 import { SetMetadata } from "@nestjs/common";
-import { ROLES } from "src/auth/enums/rol.enum";
+import { ROLES } from "src/common/enums/rol.enum";
 
 //exportar una constante que nos va a devolver una funcion flecha.
 //nos va a permitir agregarle infomacion al request que estamos solicitando.

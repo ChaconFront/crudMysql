@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BreedsService } from './breeds.service';
 import { CreateBreedDto } from './dto/create-breed.dto';
 import { UpdateBreedDto } from './dto/update-breed.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ROLES } from 'src/common/enums/rol.enum';
 
+@Auth(ROLES.ADMIN) //porque el admin es el unico que tiene acceso a crear razas
 @Controller('breeds')
 export class BreedsController {
   constructor(private readonly breedsService: BreedsService) {}

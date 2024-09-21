@@ -23,9 +23,17 @@ constructor(
     return await this.userRepository.findOneBy({email})
   }
 
+  async FindByEmailWhitPassword(email:string){
+    /* a diferencia del finOneBy el findOne nos permte hacer una busqueda un poco mas robusta. */
+    return await this.userRepository.findOne({
+      where:{email},
+      select:['id','name','email','password','role'],
+    })
+  }
+
   //retorna todos los usuarios que existen en base datos
   async findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
   async findOne(id: number) {

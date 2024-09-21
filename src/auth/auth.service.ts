@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
-
 import *  as bcryptjs from  "bcryptjs" //para el hasheo de contraseñas bcryptjs
 import { LoginDto } from './dto/loging.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -30,7 +29,7 @@ export class AuthService {
 
   async login({email,password}:LoginDto){
      //verificamos el email.
-     const user= await this.userService.findOneByEmail(email);
+     const user= await this.userService.FindByEmailWhitPassword(email);
      if(!user){
      throw new UnauthorizedException('email is wrong')
      }
@@ -39,6 +38,8 @@ export class AuthService {
      if(!isPasswordValid){
       throw new UnauthorizedException('password is wrong')
      }
+     //este payload es el que vamos a inyectarle al token para que tenga datos adicionales, y despues
+     //solicitar el perfil del usuario
      const payload ={ email: user.email, role: user.role}
      //Este metodo nos permite firmar el token.
      const token= await this.jwtService.signAsync(payload)
@@ -50,7 +51,7 @@ export class AuthService {
 
  async profile({email,role}:{email:string, role:string}){
    /* if(role!=='admin'){
-      throw new  UnauthorizedException('usted no esta autorizado para acceder a esta ruta porque no tiene el rol de admin');
+      throw new  UnauthorizedException('usted no esta autorizado para ac-ceder a esta ruta porque no tiene el rol de admin');
    } */
    return await this.userService.findOneByEmail(email);
 }

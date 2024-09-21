@@ -11,6 +11,6 @@ export class Breed {
     name:string
 
     //relacion.
-    @OneToMany(()=>Cat,(cat)=>cat.breed)
+    @OneToMany(()=>Cat,(cat)=>cat.breed)// el oneToMany no puede vivir sin el ManyToOne.
     cats:[];
 }

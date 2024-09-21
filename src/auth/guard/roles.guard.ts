@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLE_KEYS } from 'src/decorators/roles.decorator';
-import { ROLES } from '../enums/rol.enum';
+import { ROLE_KEYS } from 'src/auth/decorators/roles.decorator';
+import { ROLES } from '../../common/enums/rol.enum';
 
 //este guard nos va a permitir comprobar el rol que le estoy pasando en el token y el rol que le estoy
 //pasando en el decorador.
@@ -22,8 +22,13 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     
-    //Como podemos acceder al usuario, a traves del request.
-    const {user}=context.switchToHttp().getRequest();
+     //Como podemos acceder al usuario, a traves del request.
+     const {user}=context.switchToHttp().getRequest();
+    //Esto es para que puedan acceder a esta ruta los administradores.
+    if(user.role===ROLES.ADMIN){
+      return true;
+    }
+
     return role=== user.role;
   }
 }

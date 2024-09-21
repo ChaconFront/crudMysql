@@ -2,7 +2,8 @@
 
 import { IsString } from "class-validator";
 import { Breed } from "src/breeds/entities/breed.entity";
-import { Column, DeleteDateColumn, Entity, ManyToOne } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from "typeorm";
 //realmente quien necesita las consultas del breed es el cat.
 @Entity()//este es el decorador 
 export class Cat {
@@ -22,10 +23,15 @@ export class Cat {
     //relacion con la tabla breed
     //recibe dos funciones la primera para la tabla a la que se hace la relacion.
     //la segunda funcion se le pasa el breed y lo relacionamos con un campo que sea unico de la otra tabla
-    @ManyToOne(()=>Breed,(breed)=>breed.id,{
-        eager:true,//para que traiga las raza al hacer un finOne .
-        
+    @ManyToOne(()=>Breed,(breed)=>breed.id,{//el oneToMany si puede vivir sin el OneToMany
+        eager:true,//para que traiga las raza al hacer un finOne . 
     })
     breed:Breed;//le pasas la instancia de la entiddad.
+
+    
+    @JoinColumn({name:'userEmail',referencedColumnName:'email'})
+    user:User;//referencia a la entidad usuario.
+    @Column()
+    userEmail:string;
 
 }
