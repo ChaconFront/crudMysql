@@ -9,26 +9,20 @@ import { ROLES } from '../../common/enums/rol.enum';
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector:Reflector){}
   //el reflector es el que nos va a permitir leer el rool.
-  canActivate(
-    context: ExecutionContext,
-  ): boolean{
+  canActivate(context: ExecutionContext): boolean{
     const role=this.reflector.getAllAndOverride<ROLES>(ROLE_KEYS,[
       context.getHandler(),
       context.getClass(),
     ])
-
-    //si rol no esta definido retorna true.
     if(!role){
       return true;
     }
-    
      //Como podemos acceder al usuario, a traves del request.
      const {user}=context.switchToHttp().getRequest();
     //Esto es para que puedan acceder a esta ruta los administradores.
     if(user.role===ROLES.ADMIN){
       return true;
     }
-
     return role=== user.role;
   }
 }

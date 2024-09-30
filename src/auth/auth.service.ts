@@ -50,9 +50,6 @@ export class AuthService {
 }
 
  async profile({email,role}:{email:string, role:string}){
-   /* if(role!=='admin'){
-      throw new  UnauthorizedException('usted no esta autorizado para ac-ceder a esta ruta porque no tiene el rol de admin');
-   } */
    return await this.userService.findOneByEmail(email);
 }
 

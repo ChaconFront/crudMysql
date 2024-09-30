@@ -1,6 +1,6 @@
-import { Cat } from "src/cats/entities/cat.entity";
+
 import { ROLES } from "../../common/enums/rol.enum";
-import { Column, DeleteDateColumn, Entity, OneToMany } from "typeorm";
+import { Column, DeleteDateColumn, Entity } from "typeorm";
 
 @Entity()
 export class User {

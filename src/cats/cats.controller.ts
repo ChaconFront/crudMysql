@@ -14,7 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
-
+  
   @Post()
   create(@Body() createCatDto: CreateCatDto, @ActiveUser() user:UserActiveInterface) {
     return this.catsService.create(createCatDto,user);

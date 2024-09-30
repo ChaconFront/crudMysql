@@ -21,7 +21,7 @@ async function bootstrap() {
   .setTitle("Cats example")//titulo de la documentacion
   .setDescription("The cats API description")//descripcion
   .setVersion("1.0")//version correspondiente
-  .addBearerAuth()
+  .addBearerAuth()//autorizacion para acceder a estas rutas
   .build();
 const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup("docs", app, document);

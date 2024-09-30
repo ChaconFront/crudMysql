@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserActiveInterface } from 'src/common/interfaces/user-Active-interface';
 
 @Injectable()
 export class UsersService {
@@ -44,7 +45,12 @@ constructor(
     return `This action updates a #${id} user`;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} user`;
+
+  async EliminarUser(id: number) {
+    const id_user= await this.userRepository.findOneBy({id})
+      if(!id_user){
+        throw new BadRequestException('El usuario no esiste en base datos')
+      }
+    return await this.userRepository.softDelete(id)
   }
 }
