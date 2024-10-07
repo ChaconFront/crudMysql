@@ -6,11 +6,11 @@ import { ROLES } from '../common/enums/rol.enum';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ActiveUser } from 'src/common/decorators/active-user.decorator';
 import { UserActiveInterface } from 'src/common/interfaces/user-Active-interface';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth} from '@nestjs/swagger';
  
 
 
-@ApiTags('Auth')
+
 @Controller('auth')
 export class AuthController {
     //importamos el servicio para que sea este quien manipule la base de datos
